@@ -5,6 +5,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ActionSheetController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 
+import moment from 'moment';
 /**
  * Generated class for the HomePage page.
  *
@@ -26,6 +27,8 @@ export class HomePage {
   termvalue;
   gender;
   base64Image;
+
+  dtDateISO;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public camera: Camera, public actionsheetCtrl: ActionSheetController, public sqlite: SQLite, public toastCtrl: ToastController) { }
 
@@ -82,14 +85,9 @@ export class HomePage {
   }
 
   getage($event) {
-    console.log(this.birthdate);
-    var timeDiff = Math.abs(Date.now() - this.birthdate);  //Getting Error
-    this.age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
-
-    if (!this.age) {
-      this.age = "10"; //Default Value
-    }
-    console.log(this.age);
+    this.dtDateISO = moment(this.birthdate);
+    var timeDiff = Math.abs(Date.now() - this.dtDateISO);  //Getting Error
+    this.age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365)+ " Years";
   }
 
   genderinfo(value) {
